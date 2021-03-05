@@ -3,9 +3,8 @@
         <!-- <form v-on:submit.prevent="onSaveProduct" :validation-schema="schema"> -->
         <Form @submit="onSubmit" :validation-schema="schema">
           <!-- <Form @submit="onSaveProduct" :validation-schema="schema"> -->
-          <div class="form-group row">
+          <div class="row">
             <div class="col-6 ">
-                <h4 class="vue-card-title text-left">Add Product</h4>
                 <div class="form-group">
                     <div v-if="!temp_image">
                         <img src="/images/select_product.png" class="product-image-display"  />
@@ -21,10 +20,7 @@
             </div>
             <div class="col-6 ">
                 <div class="product-form-card">
-                    <div class="form-group">
-                        <label>Product Image:</label>
-                        <input  id="image" name="image" type="file" accept="image/*" @change="onImageChange" >
-                    </div>
+                    <h4 class="vue-card-title ">Add Product</h4>
                     <div class="form-group">
 
                       <label>Product Name:</label>
@@ -50,7 +46,7 @@
                     </div>
                     <div class="form-group">
 
-                      <label>Product Details:</label>
+                      <label>Description:</label>
                       <Field
                         name="description"
                         as="textarea"
@@ -58,6 +54,10 @@
                         v-model="product.description"
                        />
                       <ErrorMessage name="description" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <label>Product Image:</label>
+                        <input  id="image" name="image" type="file" accept="image/*" @change="onImageChange" >
                     </div>
                     <div class="form-group">
                         <router-link to="/products" class="btn btn-secondary mr-2"

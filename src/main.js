@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-//import axios       from './store/axios';
+import axios       from './store/axios';
 import store       from './store';
 import router      from './router';
 //import auth        from './plugins/auth.js';
@@ -20,7 +20,7 @@ const app = createApp(App);
 app.config.devtools = true;
 app
 .use(router)
-//.use(axios)
+.use(axios)
 .use(store)
 .use(VueSweetalert2)
 .mount('#app');

@@ -6,7 +6,7 @@
             </a> 
             <p> {{ product.description}}</p> 
             <span class="product_price"> $ {{ product.price}}</span> 
-            <a href="" aria-label="`Learn more about ${ product.title }`" class="text-wpuf"> Learn more →
+            <a href="" :title="`See about ${ product.title }`" class="text-wpuf"> See more →
             </a>
         </div>
     </div>
