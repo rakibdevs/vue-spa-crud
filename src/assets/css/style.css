@@ -199,3 +199,8 @@ html{
     padding: 30px;
     border-radius: 15px;
 }
+.fit-image{
+    max-height: 100px;
+    position: relative;
+    object-fit: cover;
+}

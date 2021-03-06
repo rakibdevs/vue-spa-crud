@@ -1,8 +1,8 @@
 <template>
     <div class="wedevs_product_grid_wrapper">
         <div class="wedevs_product_grid">
-            <a href="" class="">
-                <img loading="lazy" :src="product.image" :alt="product.title" width="150" height="35">
+            <a href="" class="" >
+                <img class="fit-image" loading="lazy" :src="product.image" :alt="product.title" width="150" >
             </a> 
             <p> {{ product.description}}</p> 
             <span class="product_price"> $ {{ product.price}}</span> 

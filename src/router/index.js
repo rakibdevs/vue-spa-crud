@@ -4,6 +4,9 @@ import NProgress    from 'nprogress';
 
 import Register     from '../views/auth/Register.vue';
 import Login        from '../views/auth/Login.vue';
+
+import auth from '../auth';
+
 const routes = [
     {
         path: '/',
@@ -15,7 +18,7 @@ const routes = [
         name: 'register',
         component: Register,
         meta: {
-            auth: false
+            disableIfLoggedIn: true
         }
     },
     {
@@ -23,23 +26,32 @@ const routes = [
         name: 'login',
         component: Login,
         meta: {
-            auth: false
+            disableIfLoggedIn: true
         }
     },
     {
         path: '/products',
         name: 'Products',
-        component: () => import('../views/products/ProductList.vue')
+        component: () => import('../views/products/ProductList.vue'),
+        meta: { 
+            requiresAuth: true
+        }
     },
     {
         path: '/products/create',
         name: 'Product Create',
-        component: () => import('../views/products/ProductCreate.vue')
+        component: () => import('../views/products/ProductCreate.vue'),
+        meta: { 
+            requiresAuth: true
+        }
     },
     {
         path: '/products/edit/:id',
         name: 'ProductEdit',
-        component: () => import('../views/products/ProductEdit.vue')
+        component: () => import('../views/products/ProductEdit.vue'),
+        meta: { 
+            requiresAuth: true
+        }
     }
 ]
 
@@ -47,6 +59,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (auth.getters.isLoggedIn && localStorage.getItem('token') != null) {
+      next()
+      return
+    }
+    next('/login') 
+  } else {
+    next() 
+  }
 })
 
 router.beforeResolve((to, from, next) => {

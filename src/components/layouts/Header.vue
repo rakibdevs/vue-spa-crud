@@ -5,24 +5,29 @@
                 <img :src="`/images/weDevs-color-logo.png`" height="35"> | Products
             </router-link>
             <div class="navbar-nav">
-                <li class="nav-item">
-                    <router-link to="/products" class="nav-link">
-                        Products
+                <li class="nav-item" v-if="isLoggedIn">
+                    <router-link  to="/products" class="nav-link">
+                        Products 
                     </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="isLoggedIn">
                     <router-link to="/products/create" class="nav-link">
                         Add Product
                     </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="!isLoggedIn" >
                     <router-link to="/login" class="nav-link">
                         Login
                     </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" v-if="!isLoggedIn">
                     <router-link to="/register" class="nav-link">
                         Register
+                    </router-link>
+                </li>
+                <li class="nav-item" v-if="isLoggedIn">
+                    <router-link to="/register" class="nav-link">
+                        Logout
                     </router-link>
                 </li>
             </div>
@@ -33,5 +38,11 @@
 <script>
 export default {
     name: "Header",
+    computed : {
+        isLoggedIn : function(){ 
+            console.log(this.$store.getters.isLoggedIn, localStorage.getItem('token'))
+            return this.$store.getters.isLoggedIn
+        }
+    }
 };
 </script>

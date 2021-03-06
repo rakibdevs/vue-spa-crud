@@ -1,10 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import Axios from 'axios';
+//import Vuex from 'vuex';
 
 import axios       from './store/axios';
 import store       from './store';
 import router      from './router';
-//import auth        from './plugins/auth.js';
 import VueSweetalert2 from 'vue-sweetalert2';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -15,8 +16,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import './assets/css/style.css';
 
-
 const app = createApp(App);
+app.config.globalProperties.$http = Axios;
+const token = localStorage.getItem('token')
+if (token) {
+	app.config.globalProperties.$http.defaults.headers.common['Authorization'] = 'bearer '+token;
+}
+
+
 app.config.devtools = true;
 app
 .use(router)
@@ -24,9 +31,3 @@ app
 .use(store)
 .use(VueSweetalert2)
 .mount('#app');
-
-/*app.use(VueSweetalert2);
-app.use(router);
-app.use(store);
-app.config.devtools = true;
-app.mount('#app');*/

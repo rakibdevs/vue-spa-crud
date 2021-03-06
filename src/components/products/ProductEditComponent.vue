@@ -118,16 +118,14 @@ export default {
   methods: {
     ...mapActions(["updateProduct", "updateProductInput", "fetchDetailProduct"]),
     onSubmit() {
-      const { title, price, description } = this.product;
-      // return false;
-      this.updateProduct({
-        id: this.id,
-        title: title,
-        price: price,
-        image: null,
-        description: description,
-        user_id: 1,
-      });
+      const { title, price, description, image } = this.product;
+
+        this.storeProduct({
+            title: title,
+            price: price,
+            image: image,
+            description: description
+        });
     },
     updateProductInputAction(e) {
       this.updateProductInput(e);
