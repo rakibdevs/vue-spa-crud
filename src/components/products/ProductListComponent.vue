@@ -1,33 +1,38 @@
 <template>
   <div class="container">
     <div class="row justify-content-center mt-2 mb-2">
-      <div class="col-8">
-        <h4 class="text-left mb-2">All Products</h4>
+      <div class="col-10">
+        <h5 class="text-left mb-2">Manage Your Products</h5>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <input
           type="text"
-          class="form-control"
+          class="form-control custom-form-control"
           placeholder="Search Products..."
           @input="searchProducts"
           v-model="query.search"
         />
       </div>
     </div>
-    <div class="">
-      <div class="" v-if="!isLoading">
-        <div class="row border-bottom border-top p-2 bg-light">
-          <div class="col-1">Sl</div>
-          <div class="col-3">Product Name</div>
-          <div class="col-2">Product Price</div>
-          <div class="col-3">Uploaded By</div>
-          <div class="col-2">Actions</div>
-        </div>
-
-        <div v-for="(item, index) in productsPaginatedData.data" :key="item.id">
-          <product-detail :index="index" :product="item" />
-        </div>
-      </div>
+    <div class="row" v-if="!isLoading">
+        <div class="col-sm-12">
+          <table class="table table-bordered  table-striped " style="width:100%">
+              <thead>
+                <tr class="text-center">
+                  <th>Sl</th>
+                  <th>Image</th>
+                  <th>Item Name</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(item, index) in productsPaginatedData.data" :key="item.id">
+                      <product-detail :index="index" :product="item" />
+                  </tr>
+              </tbody>
+          </table>
+    </div>
 
       <div v-if="isLoading" class="text-center mt-5 mb-5">
         Loading Products...

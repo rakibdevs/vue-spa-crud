@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="row justify-content-center mt-2 mb-2">
-      <div class="col-10"></div>
+      <div class="col-10">
+          
+      </div>
       <div class="col-2 ">
         <input
           type="text"
@@ -26,18 +28,17 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
+       <div v-if="productsPaginatedData !== null" class="mt-2 mb-5">
+            <v-pagination
+              v-model="query.page"
+              :pages="productsPaginatedData.pagination.total_pages"
+              :range-size="2"
+              active-color="#DCEDFF"
+              @update:modelValue="getResults"
+            />
+        </div>
     </div>
-
-    <!-- Insert Pagination Part -->
-    <div v-if="productsPaginatedData !== null" class="vertical-center mt-2 mb-5">
-      <v-pagination
-        v-model="query.page"
-        :pages="productsPaginatedData.pagination.total_pages"
-        :range-size="2"
-        active-color="#DCEDFF"
-        @update:modelValue="getResults"
-      />
-    </div>
+    
   </div>
 </template>
 

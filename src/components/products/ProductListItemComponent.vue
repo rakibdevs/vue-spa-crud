@@ -1,26 +1,24 @@
 <template>
-  <div class="row border-1 p-2">
-    <div class="col-1 text-left">{{ index + 1 }}</div>
-    <div class="col-3">{{ product.title }}</div>
-    <div class="col-2">
-      <strong class="text-danger">{{ product.price }} $</strong>
-    </div>
-    <div class="col-3">
-      <span class="badge badge-info">{{ product.user.name }}</span>
-    </div>
-    <div class="col-2">
+    <td>{{ index + 1 }}</td>
+    <td class="text-center">
+      <img v-if="product.image" loading="lazy" :src="product.image" :alt="product.title" width="50"  >
+    </td>
+    <td>{{ product.title }}</td>
+    <td class="text-center">
+      <strong>{{ product.price }}</strong>
+    </td>
+    <td class="text-center">
       <router-link
         :to="{ name: 'ProductEdit', params: { id: product.id } }"
-        class="btn btn-primary"
+        class="btn btn-primary btn-sm"
         title="Edit Product"
         >
         <i class="fa fa-pencil"></i></router-link
       >
-      <button class="btn btn-danger ml-2" @click="deleteProductModal(product.id)" title="Delete Product">
+      <button class="btn btn-sm btn-danger ml-2" @click="deleteProductModal(product.id)" title="Delete Product">
          <i class="fa fa-trash"></i>
       </button>
-    </div>
-  </div>
+    </td>
 </template>
 
 <script>

@@ -26,7 +26,7 @@
                     </router-link>
                 </li>
                 <li class="nav-item" v-if="isLoggedIn">
-                    <router-link to="/register" class="nav-link">
+                    <router-link to="/" class="nav-link">
                         Logout
                     </router-link>
                 </li>
@@ -40,7 +40,6 @@ export default {
     name: "Header",
     computed : {
         isLoggedIn : function(){ 
-            console.log(this.$store.getters.isLoggedIn, localStorage.getItem('token'))
             return this.$store.getters.isLoggedIn
         }
     }

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// initial state
 const state = () => ({
     products                : [],
     productsPaginatedData   : null,
@@ -14,7 +13,6 @@ const state = () => ({
     deletedData             : null
 })
 
-// getters
 const getters = {
     productList             : state => state.products,
     productsPaginatedData   : state => state.productsPaginatedData,
@@ -28,14 +26,13 @@ const getters = {
     deletedData             : state => state.deletedData
 };
 
-// actions
 const actions = {
     async fetchAllProducts({ commit }, query = null) {
         let page    = (query !== null)?query.page:'',
             search  = (query !== null)?query.search:'',
             baseApi = process.env.VUE_APP_API_ENDPOINT;
 
-        commit('setProductIsLoading', true);
+        commit('product_loading', true);
         let url = (search === '')?(`${baseApi}products/all?page=${page}`):(`${baseApi}product/search?keyword=${search}`);
 
         await axios.get(url)
@@ -50,22 +47,22 @@ const actions = {
                 }
                 res.data.data.pagination = pagination;
                 commit('setProductsPaginated', res.data.data);
-                commit('setProductIsLoading', false);
+                commit('product_loading', false);
             }).catch(err => {
                 console.log('error', err);
-                commit('setProductIsLoading', false);
+                commit('product_loading', false);
             });
     },
 
     async fetchDetailProduct({ commit }, id) {
-        commit('setProductIsLoading', true);
+        commit('product_loading', true);
         await axios.get(`${process.env.VUE_APP_API_ENDPOINT}products/${id}`)
             .then(res => {
                 commit('setProductDetail', res.data.data);
-                commit('setProductIsLoading', false);
+                commit('product_loading', false);
             }).catch(err => {
                 console.log('error', err);
-                commit('setProductIsLoading', false);
+                commit('product_loading', false);
             });
     },
 
@@ -76,46 +73,49 @@ const actions = {
         data.append('description', product.description);
         data.append('title', product.title);
         data.append('price', product.price);
-        console.log(data,product);
-        commit('setProductIsCreating', true);
+        commit('product_creating', true);
         await axios.post(`${process.env.VUE_APP_API_ENDPOINT}products`, data)
             .then(res => {
-                commit('saveNewProducts', res.data.data);
-                commit('setProductIsCreating', false);
+                commit('save_new_product', res.data.data);
+                commit('product_creating', false);
             }).catch(err => {
                 console.log('error', err);
-                commit('setProductIsCreating', false);
+                commit('product_creating', false);
             });
     },
 
     async updateProduct({ commit }, product) {
-        commit('setProductIsUpdating', true);
-        commit('setProductIsUpdating', true);
-        await axios.post(`${process.env.VUE_APP_API_ENDPOINT}products/${product.id}?_method=PUT`, product)
+        const data = new FormData();
+        data.append('image', product.image);
+        data.append('description', product.description);
+        data.append('title', product.title);
+        data.append('price', product.price);
+        commit('product_updating', true);
+        await axios.post(`${process.env.VUE_APP_API_ENDPOINT}products/${product.id}?_method=PUT`, data)
             .then(res => {
-                commit('saveUpdatedProduct', res.data.data);
-                commit('setProductIsUpdating', false);
+                commit('update_product', res.data.data);
+                commit('product_updating', false);
             }).catch(err => {
                 console.log('error', err);
-                commit('setProductIsUpdating', false);
+                commit('product_updating', false);
             });
     },        
 
 
     async deleteProduct({ commit }, id) {
-        commit('setProductIsDeleting', true);
+        commit('product_deleting', true);
         await axios.delete(`${process.env.VUE_APP_API_ENDPOINT}products/${id}`)
             .then(res => {
                 commit('setDeleteProduct', res.data.data.id);
-                commit('setProductIsDeleting', false);
+                commit('product_deleting', false);
             }).catch(err => {
                 console.log('error', err);
-                commit('setProductIsDeleting', false);
+                commit('product_deleting', false);
         });
     },
 
     updateProductInput({ commit }, e) {
-        commit('setProductDetailInput', e);
+        commit('product_entry', e);
     }
 }
 
@@ -137,35 +137,35 @@ const mutations = {
         state.productsPaginatedData.data.filter(x => x.id !== id);
     },
 
-    setProductDetailInput: (state, e) => {
+    product_entry: (state, e) => {
         let product = state.product;
         product[e.target.name] = e.target.value;
         state.product = product
     },
 
-    saveNewProducts: (state, product) => {
+    save_new_product: (state, product) => {
         state.products.unshift(product)
         state.createdData = product;
     },
 
-    saveUpdatedProduct: (state, product) => {
+    update_product: (state, product) => {
         state.products.unshift(product)
         state.updatedData = product;
     },
 
-    setProductIsLoading(state, isLoading) {
+    product_loading(state, isLoading) {
         state.isLoading = isLoading
     },
 
-    setProductIsCreating(state, isCreating) {
+    product_creating(state, isCreating) {
         state.isCreating = isCreating
     },
 
-    setProductIsUpdating(state, isUpdating) {
+    product_updating(state, isUpdating) {
         state.isUpdating = isUpdating
     },
 
-    setProductIsDeleting(state, isDeleting) {
+    product_deleting(state, isDeleting) {
         state.isDeleting = isDeleting
     },
 

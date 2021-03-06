@@ -114,7 +114,6 @@ html{
     background: #fff;
     box-shadow: 0 40px 70px 0 rgb(0 0 0 / 5%);
     border-radius: 5px;
-    margin: 14.5px;
     text-align: center;
     padding: 20px 30px 30px;
     width: 350px;
@@ -141,9 +140,7 @@ html{
     position: relative;
     margin-top: -60px !important;
 }
-.products_grid{
-    padding-top: 60px;
-}
+
 .product_price{
     color: #23b89a;
     font-weight: bold;
@@ -153,6 +150,9 @@ html{
     border-radius: 15px;
     height: 30px;
     font-size: 12px;
+}
+.products_grid{
+    padding-top: 10px;
 }
 .auth_card{
 
@@ -203,4 +203,11 @@ html{
     max-height: 100px;
     position: relative;
     object-fit: cover;
+}
+.Pagination {
+    justify-content:center;
+}
+.Page-active{
+    background-color: rgb(35 184 154) !important;
+    color: #fff !important;
 }
