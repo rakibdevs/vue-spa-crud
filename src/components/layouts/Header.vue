@@ -26,7 +26,7 @@
                     </router-link>
                 </li>
                 <li class="nav-item" v-if="isLoggedIn">
-                    <router-link to="/" class="nav-link">
+                    <router-link to="/logout" class="nav-link">
                         Logout
                     </router-link>
                 </li>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../router'
 
 const app = createApp()
 app.use(Vuex)
@@ -42,6 +43,7 @@ export default {
                     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                     commit('auth_success', token, user)
                     resolve(resp)
+                    router.push({name: 'Products'})
                 })
                 .catch(err => {
                     commit('auth_error')
@@ -61,8 +63,9 @@ export default {
                     // Add the following line:
                     axios.defaults.headers.common['Authorization'] = 'bearer' +token;
                     commit('auth_success', token, user)
-
                     resolve(resp)
+                    router.push('Products')
+
 
                 })
                 .catch(err => {
@@ -75,10 +78,12 @@ export default {
         logout({commit}){
             return new Promise((resolve, reject) => {
                 console.log(reject)
+                console.log('luck')
                 commit('logout')
                 localStorage.removeItem('token')
                 delete axios.defaults.headers.common['Authorization']
                 resolve()
+                router.push({name: 'Home'})
             })
         }
 

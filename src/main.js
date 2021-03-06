@@ -1,9 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import Axios from 'axios';
-//import Vuex from 'vuex';
-
-import axios       from './store/axios';
 import store       from './store';
 import router      from './router';
 import VueSweetalert2 from 'vue-sweetalert2';
@@ -23,11 +20,9 @@ if (token) {
 	app.config.globalProperties.$http.defaults.headers.common['Authorization'] = 'bearer '+token;
 }
 
-
 app.config.devtools = true;
 app
 .use(router)
-.use(axios)
 .use(store)
 .use(VueSweetalert2)
 .mount('#app');
