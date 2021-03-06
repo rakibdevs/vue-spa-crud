@@ -57,16 +57,14 @@ export default {
                 commit('auth_request')
                 axios.post(`${process.env.VUE_APP_API_ENDPOINT}register`, user)
                 .then(resp => {
-                    const token = resp.data.token
-                    const user = resp.data.user
+                    const token = resp.data.data.access_token
+                    const user = resp.data.data.user
                     localStorage.setItem('token', token)
                     // Add the following line:
                     axios.defaults.headers.common['Authorization'] = 'bearer' +token;
                     commit('auth_success', token, user)
                     resolve(resp)
-                    router.push('Products')
-
-
+                    router.push({name: 'Products'})
                 })
                 .catch(err => {
                     commit('auth_error', err)

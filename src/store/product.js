@@ -69,7 +69,9 @@ const actions = {
     // store image
     async storeProduct({ commit }, product) {
         const data = new FormData();
-        data.append('image', product.image);
+        if(product.image){
+            data.append('image', product.image);
+        }
         data.append('description', product.description);
         data.append('title', product.title);
         data.append('price', product.price);
@@ -86,7 +88,9 @@ const actions = {
 
     async updateProduct({ commit }, product) {
         const data = new FormData();
-        data.append('image', product.image);
+        if(product.image){
+            data.append('image', product.image);
+        }
         data.append('description', product.description);
         data.append('title', product.title);
         data.append('price', product.price);
