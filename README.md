@@ -16,6 +16,7 @@ VUE_APP_API_ENDPOINT=http://127.0.0.1:8000/api/v1/
 ```
 
 Laravel Demo API: https://github.com/RakibDevs/laravel-product-crud-api
+API Documentation: https://documenter.getpostman.com/view/11223504/Tz5jffsv
 
 
 ### Compiles and hot-reloads for development
