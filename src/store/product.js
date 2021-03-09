@@ -54,6 +54,33 @@ const actions = {
             });
     },
 
+    async fetchMyProducts({ commit }, query = null) {
+        let page    = (query !== null)?query.page:'',
+            search  = (query !== null)?query.search:'',
+            baseApi = process.env.VUE_APP_API_ENDPOINT;
+
+        commit('product_loading', true);
+        let url = (search === '')?(`${baseApi}products/?page=${page}`):(`${baseApi}product/search-my-store?keyword=${search}`);
+
+        await axios.get(url)
+            .then(res => {
+                const products = res.data.data.data;
+                commit('setProducts', products);
+                const pagination = {
+                    total: res.data.data.total,  
+                    per_page: res.data.data.per_page, 
+                    current_page: res.data.data.current_page, 
+                    total_pages: res.data.data.last_page 
+                }
+                res.data.data.pagination = pagination;
+                commit('setProductsPaginated', res.data.data);
+                commit('product_loading', false);
+            }).catch(err => {
+                console.log('error', err);
+                commit('product_loading', false);
+            });
+    },
+
     async fetchDetailProduct({ commit }, id) {
         commit('product_loading', true);
         await axios.get(`${process.env.VUE_APP_API_ENDPOINT}products/${id}`)

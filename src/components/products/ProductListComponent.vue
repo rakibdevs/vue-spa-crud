@@ -76,18 +76,18 @@ export default {
   computed: { ...mapGetters(["productList", "productsPaginatedData", "isLoading"]) },
 
   methods: {
-    ...mapActions(["fetchAllProducts"]),
+    ...mapActions(["fetchMyProducts"]),
 
     getResults() {
-      this.fetchAllProducts(this.query);
+      this.fetchMyProducts(this.query);
     },
     searchProducts() {
-      this.fetchAllProducts(this.query);
+      this.fetchMyProducts(this.query);
     },
   },
 
   created() {
-    this.fetchAllProducts(this.query);
+    this.fetchMyProducts(this.query);
   },
 };
 </script>
