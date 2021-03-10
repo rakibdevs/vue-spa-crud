@@ -1,5 +1,4 @@
 # Vue.js SPA CRUD with JWT Auth
-<img src="https://github.com/RakibDevs/vue-spa-crud/blob/master/public/products.jpg">
 
 ## Project setup
 
